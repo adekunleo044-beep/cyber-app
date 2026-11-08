@@ -1,99 +1,27 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CYBER APP</title>
-<style>
-body { background: black; color: #00ff00; font-family: monospace; padding: 20px; text-align: center; }
-h1 { font-size: 32px; }
-.box { border: 1px solid #00ff00; border-radius: 10px; padding: 15px; margin: 15px 0; }
-input, textarea { width: 90%; padding: 12px; margin: 10px 0; background: #111; color: white; border: 1px solid #00ff00; border-radius: 5px; font-size: 16px; }
-button { background: #00ff00; color: black; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 95%; }
-.result { margin-top: 10px; font-weight: bold; font-size: 17px; min-height: 20px; }
-.safe { color: #00ff00; }
-.warn { color: orange; }
-.danger { color: red; }
-</style>
-</head>
-<body>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>CYBER APP</title>
+<style>body{background:#000;color:#0f0;font-family:monospace;padding:15px;text-align:center}h1{font-size:30px}.box{border:1px solid #0f0;border-radius:10px;padding:12px;margin:12px 0}input,textarea,select{width:92%;padding:11px;margin:8px 0;background:#111;color:#fff;border:1px solid #0f0;border-radius:5px;font-size:15px}button{background:#0f0;color:#000;border:none;padding:12px;font-weight:bold;border-radius:5px;width:95%;font-size:16px}.r{margin-top:8px;font-weight:bold;min-height:20px}.s{color:#0f0}.w{color:orange}.d{color:red}</style></head><body>
+<h1>CYBER APP</h1><p>Stay Safe Online - V3 Advanced</p>
 
-<h1>CYBER APP</h1>
-<p>Stay Safe Online</p>
+<div class="box"><h2>[ Link Checker ]</h2><input id="l" placeholder="Paste link here..." oninput="c('lr')"><button onclick="cl()">Check Link</button><div id="lr" class="r"></div></div>
 
-<div class="box">
-<h2>[ Link Checker ]</h2>
-<input id="linkInput" type="text" placeholder="Paste link here..." oninput="clearResult('linkResult')">
-<button onclick="checkLink()">Check Link</button>
-<div id="linkResult" class="result"></div>
-</div>
+<div class="box"><h2>[ Password Checker ]</h2><input id="p" placeholder="Type password..." oninput="c('pr')"><button onclick="cp()">Check Password</button><div id="pr" class="r"></div></div>
 
-<div class="box">
-<h2>[ Password Checker ]</h2>
-<input id="passInput" type="text" placeholder="Type password here..." oninput="clearResult('passResult')">
-<button onclick="checkPass()">Check Password</button>
-<div id="passResult" class="result"></div>
-</div>
+<div class="box"><h2>[ Scam SMS Checker ]</h2><textarea id="s" rows="3" placeholder="Paste SMS here..." oninput="c('sr')"></textarea><button onclick="cs()">Check SMS</button><div id="sr" class="r"></div></div>
 
-<div class="box">
-<h2>[ Scam SMS Checker ]</h2>
-<textarea id="smsInput" rows="4" placeholder="Paste SMS message here..." oninput="clearResult('smsResult')"></textarea>
-<button onclick="checkSMS()">Check SMS</button>
-<div id="smsResult" class="result"></div>
-</div>
+<div class="box"><h2>[ WiFi Safety Checker ]</h2><select id="w"><option value="">Select WiFi type...</option><option>Free WiFi - No Password</option><option>WiFi With Password</option><option>Bank / Office WiFi</option><option>Public Hotspot - Cafe / Airport</option></select><button onclick="cw()">Check WiFi</button><div id="wr" class="r"></div></div>
+
+<div class="box"><h2>[ Fake Email Checker ]</h2><input id="e" placeholder="Paste sender email..." oninput="c('er')"><button onclick="ce()">Check Email</button><div id="er" class="r"></div></div>
 
 <script>
-function clearResult(id){ document.getElementById(id).innerHTML = ""; }
-
-function checkLink(){
-  let link = document.getElementById('linkInput').value.trim();
-  let out = document.getElementById('linkResult');
-  if(!link){ out.innerHTML = "Please paste a link first."; return; }
-  // Fix: Add https:// if missing
-  if(!link.startsWith('http://') && !link.startsWith('https://')){
-    link = 'https://' + link;
-  }
-  let lower = link.toLowerCase();
-  let badWords = ['free-money','giveaway','verify-account','login-now','bank-alert','crypto-double','bit.ly','tinyurl'];
-  let foundBad = badWords.some(w => lower.includes(w));
-
-  if(foundBad){
-    out.innerHTML = '<span class="danger">DANGER - Suspicious link! Do not click.</span>';
-  } else if(lower.includes('http://')){
-    out.innerHTML = '<span class="warn">WARNING - Not secure (http). Be careful.</span>';
-  } else {
-    out.innerHTML = '<span class="safe">SAFE - Looks Good. Full link: ' + link + '</span>';
-  }
-}
-
-function checkPass(){
-  let p = document.getElementById('passInput').value;
-  let out = document.getElementById('passResult');
-  if(!p){ return; }
-  if(p.length < 6){
-    out.innerHTML = '<span class="danger">WEAK - Too short. Use at least 8 characters.</span>';
-  } else if(p.length < 10){
-    out.innerHTML = '<span class="warn">MEDIUM - Add numbers & symbols.</span>';
-  } else {
-    out.innerHTML = '<span class="safe">STRONG - Good password!</span>';
-  }
-}
-
-function checkSMS(){
-  let sms = document.getElementById('smsInput').value.toLowerCase();
-  let out = document.getElementById('smsResult');
-  if(!sms){ out.innerHTML = "Please paste an SMS first."; return; }
-  let scamWords = ['otp','verification code','account blocked','verify now','click here','win','lottery','bvn','suspended','urgent','bank'];
-  let count = scamWords.filter(w => sms.includes(w)).length;
-
-  if(count >= 2){
-    out.innerHTML = '<span class="danger">LIKELY SCAM - Do not click any link or share OTP.</span>';
-  } else if(count == 1){
-    out.innerHTML = '<span class="warn">SUSPICIOUS - Be careful. Do not share codes.</span>';
-  } else {
-    out.innerHTML = '<span class="safe">LOOKS OK - No common scam words found.</span>';
-  }
-}
-</script>
-
-</body>
-</html>
+function c(id){document.getElementById(id).innerHTML=""}
+function cl(){let v=document.getElementById('l').value.trim(),o=document.getElementById('lr');if(!v){o.innerHTML="Paste a link first";return}if(!v.startsWith('http'))v='https://'+v;let x=v.toLowerCase(),score=0;if(x.includes('http://'))score+=2;if(/\d+\.\d+\.\d+\.\d+/.test(x))score+=3;if(['bit.ly','tinyurl','t.co','goo.gl','cutt.ly'].some(a=>x.includes(a)))score+=2;if(['login','verify','secure','account','bank','free','giveaway','crypto','wallet','unlock','suspended'].some(a=>x.includes(a)))score+=2;if((x.match(/-/g)||[]).length>3)score+=1;if(x.length>75)score+=1;
+o.innerHTML=score>=4?'<span class=d>DANGER - Do NOT click. Score: '+score+'/9</span>':score>=2?'<span class=w>WARNING - Be careful. Score: '+score+'/9</span>':'<span class=s>SAFE - Looks Good. '+v+'</span>'}
+function cp(){let v=document.getElementById('p').value,o=document.getElementById('pr');if(!v)return;let common=['123456','password','123456789','qwerty','admin','12345','letmein','football'];if(common.includes(v.toLowerCase())){o.innerHTML='<span class=d>VERY WEAK - This is a common password. Change it now.</span>';return}let s=0;if(v.length>=8)s++;if(v.length>=12)s++;if(/[A-Z]/.test(v))s++;if(/[a-z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;
+o.innerHTML=s<=2?'<span class=d>WEAK - Score '+s+'/6. Add capitals, numbers & symbols.</span>':s<=4?'<span class=w>MEDIUM - Score '+s+'/6. Add more length.</span>':'<span class=s>STRONG - Score '+s+'/6. Good password!</span>'}
+function cs(){let v=document.getElementById('s').value.toLowerCase(),o=document.getElementById('sr');if(!v){o.innerHTML="Paste SMS first";return}let words=['otp','code','blocked','block','verify','suspended','urgent','click','win','lottery','bvn','bank','account','free','prize','link','gift','transfer'];let n=words.filter(a=>v.includes(a)).length;let hasLink=v.includes('http')||v.includes('.com')||v.includes('bit.ly');
+o.innerHTML=n>=4||(n>=2&&hasLink)?'<span class=d>LIKELY SCAM - Do NOT click or share OTP. Words found: '+n+'</span>':n>=2?'<span class=w>SUSPICIOUS - Be careful. Words found: '+n+'</span>':'<span class=s>LOOKS OK - No scam words found.</span>'}
+function cw(){let v=document.getElementById('w').value,o=document.getElementById('wr');if(!v){o.innerHTML="Select WiFi type";return}o.innerHTML=v.includes('No Password')||v.includes('Hotspot')?'<span class=d>DANGER - Do NOT do banking on this WiFi.</span>':v.includes('Bank')?'<span class=s>SAFE - Trusted WiFi.</span>':'<span class=w>MEDIUM - OK for browsing, avoid banking.</span>'}
+function ce(){let v=document.getElementById('e').value.toLowerCase().trim(),o=document.getElementById('er');if(!v){o.innerHTML="Paste email first";return}let bad=['support@','security@','noreply','gmail.com','yahoo.com'];let sus=v.includes('support')&&v.includes('gmail')||v.includes('secure')&&v.includes('gmail')||v.split('@')[1]&&v.split('@')[1].length>20||/\d{3,}/.test(v);
+o.innerHTML=sus?'<span class=d>SUSPICIOUS - Might be fake. Do not reply.</span>':'<span class=s>LOOKS OK - Check the name carefully.</span>'}
+</script></body></html>

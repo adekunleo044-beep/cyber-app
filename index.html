@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>CYBER APP</title>
-<style>body{background:#000;color:#0f0;font-family:monospace;padding:12px;text-align:center}h1{font-size:28px}.box{border:1px solid #0f0;border-radius:10px;padding:10px;margin:10px 0}input,textarea,select{width:92%;padding:10px;margin:7px 0;background:#111;color:#fff;border:1px solid #0f0;border-radius:5px;font-size:14px}button{background:#0f0;color:#000;border:none;padding:11px;font-weight:bold;border-radius:5px;width:95%;font-size:15px}.r{margin-top:7px;font-weight:bold;min-height:18px}.s{color:#0f0}.w{color:orange}.d{color:red}small{color:#aaa}</style></head><body>
-<h1>CYBER APP</h1><p>Stay Safe Online - V4 FULL</p><small>All checks happen on your phone. Nothing is sent anywhere.</small>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>CYBER APP - FREE</title>
+<style>body{background:#000;color:#0f0;font-family:monospace;padding:12px;text-align:center}h1{font-size:28px;margin-bottom:2px}.box{border:1px solid #0f0;border-radius:10px;padding:10px;margin:10px 0}input,textarea,select{width:92%;padding:10px;margin:7px 0;background:#111;color:#fff;border:1px solid #0f0;border-radius:5px;font-size:14px}button{background:#0f0;color:#000;border:none;padding:11px;font-weight:bold;border-radius:5px;width:95%;font-size:15px;margin-top:5px}.r{margin-top:7px;font-weight:bold;min-height:18px}.s{color:#0f0}.w{color:orange}.d{color:red}small{color:#aaa}.free{background:#0f0;color:#000;padding:6px 10px;border-radius:20px;font-weight:bold;font-size:13px;display:inline-block}.share{background:#25D366;color:#fff}.report{background:#fff;color:#000;border:1px solid #0f0}</style></head><body>
+<h1>CYBER APP</h1><span class="free">100% FREE FOREVER</span><p>Stay Safe Online - Made To Protect You</p><small>All checks happen on your phone. Nothing is sent anywhere.</small>
+<br><br><button class="share" onclick="shareApp()">📤 Share This FREE App On WhatsApp</button>
+<button class="report" onclick="reportScam()">🚨 Report A New Scam To Us</button>
 
 <div class="box"><h2>[1 Link Checker]</h2><input id="l" placeholder="Paste link..." oninput="c('lr')"><button onclick="cl()">Check Link</button><div id="lr" class="r"></div></div>
 
@@ -13,17 +15,20 @@
 
 <div class="box"><h2>[5 Fake Email Checker]</h2><input id="e" placeholder="Paste sender email..." oninput="c('er')"><button onclick="ce()">Check Email</button><div id="er" class="r"></div></div>
 
-<div class="box"><h2>[6 Fake Job Checker]</h2><textarea id="j" rows="3" placeholder="Paste job message... e.g Pay 50k to get job" oninput="c('jr')"></textarea><button onclick="cj()">Check Job</button><div id="jr" class="r"></div></div>
+<div class="box"><h2>[6 Fake Job Checker]</h2><textarea id="j" rows="3" placeholder="Paste job message..." oninput="c('jr')"></textarea><button onclick="cj()">Check Job</button><div id="jr" class="r"></div></div>
 
-<div class="box"><h2>[7 Fake App Checker]</h2><input id="a" placeholder="App name or link... e.g free bank app apk" oninput="c('ar')"><button onclick="ca()">Check App</button><div id="ar" class="r"></div></div>
+<div class="box"><h2>[7 Fake App Checker]</h2><input id="a" placeholder="App name or link..." oninput="c('ar')"><button onclick="ca()">Check App</button><div id="ar" class="r"></div></div>
 
 <div class="box"><h2>[8 Scam Call / Phone]</h2><input id="ph" placeholder="Paste number or what caller said..." oninput="c('phr')"><button onclick="cph()">Check Call</button><div id="phr" class="r"></div></div>
 
-<div class="box"><h2>[9 QR / Short Link]</h2><input id="q" placeholder="Paste QR link... e.g bit.ly/xxx" oninput="c('qr')"><button onclick="cq()">Check QR Link</button><div id="qr" class="r"></div></div>
+<div class="box"><h2>[9 QR / Short Link]</h2><input id="q" placeholder="Paste QR link..." oninput="c('qr')"><button onclick="cq()">Check QR Link</button><div id="qr" class="r"></div></div>
 
-<div class="box"><h2>⚠ Safety Tips</h2><p style="text-align:left;font-size:13px;color:#fff">1. Never share OTP / PIN / BVN<br>2. No real bank asks for password on WhatsApp<br>3. If they say pay to get job, it is scam<br>4. Check link before you click<br>5. Use different password for bank</p></div>
+<div class="box"><h2>⚠ Safety Tips</h2><p style="text-align:left;font-size:13px;color:#fff">1. Never share OTP / PIN / BVN<br>2. No real bank asks for password on WhatsApp<br>3. If they say pay to get job, it is scam<br>4. Check link before you click<br>5. Use different password for bank<br>6. Share this app to protect your family - It's FREE</p></div>
+<p><small>CYBER APP - FREE FOREVER - Share to protect others</small></p>
 
 <script>
+function shareApp(){let t="🛡️ FREE APP - Don't lose money to scammers! Check any link, SMS, fake job FREE here: https://adekunleo044-beep.github.io/cyber-app/ Share to protect your family. It's FREE.";window.open("https://wa.me/?text="+encodeURIComponent(t))}
+function reportScam(){let t="Hello, I want to report a new scam I received: ";window.open("https://wa.me/?text="+encodeURIComponent(t))}
 function c(id){document.getElementById(id).innerHTML=""}
 function cl(){let v=document.getElementById('l').value.trim(),o=document.getElementById('lr');if(!v){o.innerHTML="Paste a link first";return}if(!v.startsWith('http'))v='https://'+v;let x=v.toLowerCase(),s=0;if(x.includes('http://'))s+=2;if(/\d+\.\d+\.\d+\.\d+/.test(x))s+=3;if(['bit.ly','tinyurl','t.co','goo.gl','cutt.ly','is.gd'].some(a=>x.includes(a)))s+=2;if(['login','verify','secure','account','bank','free','giveaway','crypto','wallet','unlock','suspended','update'].some(a=>x.includes(a)))s+=2;if((x.match(/-/g)||[]).length>3)s++;if(x.length>75)s++;
 o.innerHTML=s>=4?'<span class=d>DANGER - Do NOT click. Score '+s+'/10</span>':s>=2?'<span class=w>WARNING - Be careful. Score '+s+'/10</span>':'<span class=s>SAFE - Looks Good. '+v+'</span>'}

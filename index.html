@@ -1,39 +1,99 @@
-<html><head><meta charset="utf-8"><style>
-body{background:black;color:#00ff00;text-align:center;font-family:Arial;padding-top:40px}
-input{padding:12px;margin:8px;width:280px;border:2px solid #00ff00;background:#111;color:white;border-radius:8px}
-button{padding:12px 40px;background:#00ff00;border:none;font-weight:bold;border-radius:8px}
-.box{background:#111;padding:20px;margin:15px;border-radius:12px}
-#result,#presult{font-size:19px;font-weight:bold}
-</style></head>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBER APP</title>
+<style>
+body { background: black; color: #00ff00; font-family: monospace; padding: 20px; text-align: center; }
+h1 { font-size: 32px; }
+.box { border: 1px solid #00ff00; border-radius: 10px; padding: 15px; margin: 15px 0; }
+input, textarea { width: 90%; padding: 12px; margin: 10px 0; background: #111; color: white; border: 1px solid #00ff00; border-radius: 5px; font-size: 16px; }
+button { background: #00ff00; color: black; border: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 95%; }
+.result { margin-top: 10px; font-weight: bold; font-size: 17px; min-height: 20px; }
+.safe { color: #00ff00; }
+.warn { color: orange; }
+.danger { color: red; }
+</style>
+</head>
 <body>
+
 <h1>CYBER APP</h1>
-<p>Check Link & Stay Safe</p>
+<p>Stay Safe Online</p>
+
 <div class="box">
-<h3>[ Link Checker ]</h3>
-<input id="link" placeholder="Paste link here"><br>
+<h2>[ Link Checker ]</h2>
+<input id="linkInput" type="text" placeholder="Paste link here..." oninput="clearResult('linkResult')">
 <button onclick="checkLink()">Check Link</button>
-<p id="result"></p>
+<div id="linkResult" class="result"></div>
 </div>
+
 <div class="box">
-<h3>[ Password Checker ]</h3>
-<input id="pass" type="password" placeholder="Type password"><br>
+<h2>[ Password Checker ]</h2>
+<input id="passInput" type="text" placeholder="Type password here..." oninput="clearResult('passResult')">
 <button onclick="checkPass()">Check Password</button>
-<p id="presult"></p>
+<div id="passResult" class="result"></div>
 </div>
+
+<div class="box">
+<h2>[ Scam SMS Checker ]</h2>
+<textarea id="smsInput" rows="4" placeholder="Paste SMS message here..." oninput="clearResult('smsResult')"></textarea>
+<button onclick="checkSMS()">Check SMS</button>
+<div id="smsResult" class="result"></div>
+</div>
+
 <script>
+function clearResult(id){ document.getElementById(id).innerHTML = ""; }
+
 function checkLink(){
-let l=document.getElementById('link').value.toLowerCase();
-let r=document.getElementById('result');
-if(!l.includes('http')){r.style.color='yellow';r.innerHTML='WARNING: No be real link!';}
-else if(l.includes('free')||l.includes('win')||l.includes('gift')||l.includes('crypto')||l.includes('login')){r.style.color='red';r.innerHTML='DANGER! Possible Phishing!';}
-else{r.style.color='#00ff00';r.innerHTML='SAFE - Looks Good';}
+  let link = document.getElementById('linkInput').value.trim();
+  let out = document.getElementById('linkResult');
+  if(!link){ out.innerHTML = "Please paste a link first."; return; }
+  // Fix: Add https:// if missing
+  if(!link.startsWith('http://') && !link.startsWith('https://')){
+    link = 'https://' + link;
+  }
+  let lower = link.toLowerCase();
+  let badWords = ['free-money','giveaway','verify-account','login-now','bank-alert','crypto-double','bit.ly','tinyurl'];
+  let foundBad = badWords.some(w => lower.includes(w));
+
+  if(foundBad){
+    out.innerHTML = '<span class="danger">DANGER - Suspicious link! Do not click.</span>';
+  } else if(lower.includes('http://')){
+    out.innerHTML = '<span class="warn">WARNING - Not secure (http). Be careful.</span>';
+  } else {
+    out.innerHTML = '<span class="safe">SAFE - Looks Good. Full link: ' + link + '</span>';
+  }
 }
+
 function checkPass(){
-let p=document.getElementById('pass').value;
-let r=document.getElementById('presult');
-if(p.length<6){r.style.color='red';r.innerHTML='WEAK - Too short!';}
-else if(p.length<10){r.style.color='yellow';r.innerHTML='MEDIUM - Add numbers & symbols';}
-else{r.style.color='#00ff00';r.innerHTML='STRONG - Good password!';}
+  let p = document.getElementById('passInput').value;
+  let out = document.getElementById('passResult');
+  if(!p){ return; }
+  if(p.length < 6){
+    out.innerHTML = '<span class="danger">WEAK - Too short. Use at least 8 characters.</span>';
+  } else if(p.length < 10){
+    out.innerHTML = '<span class="warn">MEDIUM - Add numbers & symbols.</span>';
+  } else {
+    out.innerHTML = '<span class="safe">STRONG - Good password!</span>';
+  }
+}
+
+function checkSMS(){
+  let sms = document.getElementById('smsInput').value.toLowerCase();
+  let out = document.getElementById('smsResult');
+  if(!sms){ out.innerHTML = "Please paste an SMS first."; return; }
+  let scamWords = ['otp','verification code','account blocked','verify now','click here','win','lottery','bvn','suspended','urgent','bank'];
+  let count = scamWords.filter(w => sms.includes(w)).length;
+
+  if(count >= 2){
+    out.innerHTML = '<span class="danger">LIKELY SCAM - Do not click any link or share OTP.</span>';
+  } else if(count == 1){
+    out.innerHTML = '<span class="warn">SUSPICIOUS - Be careful. Do not share codes.</span>';
+  } else {
+    out.innerHTML = '<span class="safe">LOOKS OK - No common scam words found.</span>';
+  }
 }
 </script>
-</body></html>
+
+</body>
+</html>

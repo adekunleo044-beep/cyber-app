@@ -1,0 +1,39 @@
+<html><head><meta charset="utf-8"><style>
+body{background:black;color:#00ff00;text-align:center;font-family:Arial;padding-top:40px}
+input{padding:12px;margin:8px;width:280px;border:2px solid #00ff00;background:#111;color:white;border-radius:8px}
+button{padding:12px 40px;background:#00ff00;border:none;font-weight:bold;border-radius:8px}
+.box{background:#111;padding:20px;margin:15px;border-radius:12px}
+#result,#presult{font-size:19px;font-weight:bold}
+</style></head>
+<body>
+<h1>CYBER APP</h1>
+<p>Check Link & Stay Safe</p>
+<div class="box">
+<h3>[ Link Checker ]</h3>
+<input id="link" placeholder="Paste link here"><br>
+<button onclick="checkLink()">Check Link</button>
+<p id="result"></p>
+</div>
+<div class="box">
+<h3>[ Password Checker ]</h3>
+<input id="pass" type="password" placeholder="Type password"><br>
+<button onclick="checkPass()">Check Password</button>
+<p id="presult"></p>
+</div>
+<script>
+function checkLink(){
+let l=document.getElementById('link').value.toLowerCase();
+let r=document.getElementById('result');
+if(!l.includes('http')){r.style.color='yellow';r.innerHTML='WARNING: No be real link!';}
+else if(l.includes('free')||l.includes('win')||l.includes('gift')||l.includes('crypto')||l.includes('login')){r.style.color='red';r.innerHTML='DANGER! Possible Phishing!';}
+else{r.style.color='#00ff00';r.innerHTML='SAFE - Looks Good';}
+}
+function checkPass(){
+let p=document.getElementById('pass').value;
+let r=document.getElementById('presult');
+if(p.length<6){r.style.color='red';r.innerHTML='WEAK - Too short!';}
+else if(p.length<10){r.style.color='yellow';r.innerHTML='MEDIUM - Add numbers & symbols';}
+else{r.style.color='#00ff00';r.innerHTML='STRONG - Good password!';}
+}
+</script>
+</body></html>
